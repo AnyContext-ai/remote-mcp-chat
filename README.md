@@ -1,5 +1,11 @@
 # Remote MCP Chat
 
+## Architecture
+![alt text](<resources/architecture.jpg>)
+
+## How it works
+![alt text](<resources/how-it-works.jpg>)
+
 ## Prerequisites
 - Python >3.10
 - uv
