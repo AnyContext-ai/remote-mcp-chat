@@ -29,6 +29,7 @@ def parse_tool_for_openai(tool: MCPTool) -> OpenAITool:
 
 async def main():
     server_url = os.getenv("MCP_SERVER_URL")
+    mcp_server_api_key = os.getenv("MCP_SERVER_API_KEY")
     model = "gpt-4o-mini"
     openai_client = OpenAI()
     messages: List[OpenAIChatCompletionMessageParam] = [
@@ -38,7 +39,7 @@ async def main():
         }
     ]
     try:
-        async with sse_client(server_url) as (read_stream, write_stream):
+        async with sse_client(server_url, headers={"API-Key": mcp_server_api_key}) as (read_stream, write_stream):
             async with ClientSession(read_stream=read_stream, write_stream=write_stream) as session:
                 await session.initialize()
                 print(f"Connected to server at {server_url}")
