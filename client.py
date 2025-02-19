@@ -38,8 +38,9 @@ async def main():
             "content": "You are a helpful assistant with access to tools",
         }
     ]
+    print(f"Connecting to server at {server_url}...")
     try:
-        async with sse_client(server_url, headers={"API-Key": mcp_server_api_key}) as (read_stream, write_stream):
+        async with sse_client(server_url, headers={"x-api-key": mcp_server_api_key}) as (read_stream, write_stream):
             async with ClientSession(read_stream=read_stream, write_stream=write_stream) as session:
                 await session.initialize()
                 print(f"Connected to server at {server_url}")
@@ -103,11 +104,11 @@ async def main():
                         })
                 
     except Exception as e:
-        print(f"Error connecting to server: {e}")
+        print(f"Error connecting to server: {e.args}")
 
 
 if __name__ == "__main__":
-    load_dotenv()
+    load_dotenv(override=True)
     asyncio.run(main())
 
 
